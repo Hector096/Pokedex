@@ -1,8 +1,14 @@
+import { getPokemonList } from './fetchPokemons';
+
 export default function createPokeStore() {
   return {
     pokemons: [],
-    addPokemon(pokemon) {
-      this.pokemons.push(pokemon);
+    async fetchPokemons() {
+      this.pokemons = await getPokemonList();
+      console.log(this.pokemons);
+    },
+    addPokemon(input) {
+      this.pokemons.push({ name: input });
     },
   };
 }

@@ -14,7 +14,7 @@ export const PokeProvider = ({ children }) => {
 };
 
 PokeProvider.propTypes = {
-  children: PropTypes.elementType.isRequired,
+  children: PropTypes.shape(PropTypes.element.isRequired).isRequired,
 };
 
 export const usePokeStore = () => React.useContext(PokeContext);
