@@ -1,14 +1,15 @@
+import React from 'react';
+import { observable, action } from 'mobx';
 import { getPokemonList } from './fetchPokemons';
 
-export default function createPokeStore() {
-  return {
+export const createPokeStore = () => {
+  const store = observable({
     pokemons: [],
-    async fetchPokemons() {
+    fetchPokemons: action(async () => {
       this.pokemons = await getPokemonList();
-      console.log(this.pokemons);
-    },
-    addPokemon(input) {
-      this.pokemons.push({ name: input });
-    },
-  };
-}
+    }),
+  });
+  return store;
+};
+
+export default React.createContext();
