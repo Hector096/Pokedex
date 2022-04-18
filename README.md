@@ -9,7 +9,7 @@ Additional description about the project and its features.
 
 
 ## Live Demo
-[live-demo](https://hector096.github.io/PokeApp/dist)
+[live-demo](https://pokedex-hector.netlify.app)
 
 ## Built With
 
