@@ -86,16 +86,16 @@ const App = observer(() => {
 
   const columns = [
     {
+      title: 'Image',
+      key: 'img',
+      render: (record) => <img src={`${record.sprites.front_default}`} alt="poke" />,
+    },
+    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       ...getColumnSearchProps('name'),
-      render: (record) => <h4>{record.toUpperCase()}</h4>,
-    },
-    {
-      title: 'Image',
-      key: 'img',
-      render: (record) => <img src={`${record.sprites.front_default}`} alt="poke" />,
+      render: (record) => <div>{record.toUpperCase()}</div>,
     },
     {
       title: 'Type',
@@ -183,12 +183,14 @@ const App = observer(() => {
     {
       title: 'Weight',
       key: 'weight',
-      render: (record) => <h5>{record.weight}</h5>,
+      render: (record) => <div>{record.weight}</div>,
+      responsive: ['lg'],
     },
     {
       title: 'Experience',
       key: 'exp',
-      render: (record) => <h5>{record.base_experience}</h5>,
+      render: (record) => <div>{record.base_experience}</div>,
+      responsive: ['lg'],
     },
   ];
 
@@ -210,7 +212,7 @@ const App = observer(() => {
       {pokemons.length === 0 ? (<Spin style={{ paddingLeft: '50%' }} />) : (
         <Table
           hideDefaultSelections
-          className="border m-4 p-3"
+          className="m-4 p-3"
           onRow={(record) => ({
             onClick: () => {
               setModalData(record);
