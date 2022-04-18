@@ -1,47 +1,49 @@
-// import { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-// import { getPokemonDetails } from '../mobx/fetchPokemons';
+import {
+  Card, Image, Tag, List,
+} from 'antd';
+import getColor from '../color';
 
-// const Pokemon = ({
-//   data,
-// }) => {
-//   const { url, name } = data;
-
-//   const [imageLoaded, setImageLoaded] = useState(false);
-//   const [image, setImage] = useState(null);
-
-//   useEffect(() => {
-//     const fetchPokemonDetails = async () => {
-//       const respData = await getPokemonDetails(url);
-//       setImage(respData.sprites.front_default);
-//     };
-//     fetchPokemonDetails();
-//   }, [url]);
-
-//   return (
-//     <Link className={styles.container} key={name} to={`pokemon/${name}`}>
-//       <div className={styles.details}>
-//         <h4>{name[0].toUpperCase() + name.slice(1)}</h4>
-//       </div>
-//       <Loading
-//         className={styles.pokemon}
-//         loading={!imageLoaded}
-//         render={() => (
-//           <>
-//             {image && <img src={image} alt={name} onLoad={() => setImageLoaded(true)} />}
-//           </>
-//         )}
-//       />
-//     </Link>
-//   );
-// };
-
-// Pokemon.propTypes = {
-//   data: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     url: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
-
-// export default Pokemon;
+const Pokemon = ({ data }) => {
+  const { Meta } = Card;
+  return (
+    <div>
+      <Card
+        cover={(
+          <div className="d-flex justify-content-center">
+            <Image
+              width={200}
+              src={`${data.sprites.front_default}`}
+            />
+          </div>
+    )}
+      >
+        <Meta
+          title={data.name.toUpperCase()}
+          className="mb-2"
+        />
+        <span>
+          {data.types.map((type) => {
+            const color = getColor(type.type.name);
+            return (
+              <Tag color={color} key={type.type.url}>
+                {type.type.name.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </span>
+        <List
+          dataSource={data.stats}
+          renderItem={(item) => (
+            <List.Item key={item.stat.name}>
+              <List.Item.Meta
+                title={item.stat.name}
+              />
+              <div>{item.base_stat}</div>
+            </List.Item>
+          )}
+        />
+      </Card>
+    </div>
+  );
+};
+export default Pokemon;
